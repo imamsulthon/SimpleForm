@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">SimpleForm</string>
     <string name="company_name">Amar Bank</string>
+
+    // form input: label and hints
+    <string name="field_label_id_card">Nomor KTP</string>
+    <string name="field_label_full_name">Nama Lengkap</string>
+    <string name="field_label_bank_account">Nomor Rekening</string>
+    <string name="field_label_id_education">Pendidikan</string>
+    <string name="field_label_full_dob">Tanggal lahir (DD/MM/YYYY)</string>
+    <string name="btn_save">Simpan</string>
+    <string name="btn_save_continue">Simpan &amp; Lanjut</string>
+    <string name="btn_done">Selesai</string>
+
 </resources>
