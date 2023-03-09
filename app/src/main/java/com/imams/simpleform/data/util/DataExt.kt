@@ -1,7 +1,6 @@
 package com.imams.simpleform.data.util
 
 import java.lang.Double.parseDouble
-import java.lang.Long.parseLong
 
 object DataExt {
     fun String.checkValidDate(): Boolean {

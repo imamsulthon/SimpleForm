@@ -3,6 +3,7 @@
     <string name="company_name">Amar Bank</string>
 
     // form input: label and hints
+    <string name="page_form_title_personal_info">Personal Info</string>
     <string name="field_label_id_card">Nomor KTP</string>
     <string name="field_label_full_name">Nama Lengkap</string>
     <string name="field_label_bank_account">Nomor Rekening</string>
@@ -11,5 +12,32 @@
     <string name="btn_save">Simpan</string>
     <string name="btn_save_continue">Simpan &amp; Lanjut</string>
     <string name="btn_done">Selesai</string>
+
+    <string name="page_form_title_address_info">Personal Info</string>
+    <string name="field_label_address">Alamat Domisili</string>
+    <string name="field_label_address_no">No</string>
+    <string name="field_label_housing">Tipe Tempat Tinggal</string>
+    <string name="field_label_province">Provinsi</string>
+
+    <string-array name="education_array">
+        <item>Pilihan…</item>
+        <item>SD</item>
+        <item>SMP</item>
+        <item>SMA</item>
+        <item>S1</item>
+        <item>S2</item>
+        <item>S3</item>
+    </string-array>
+
+
+    <string-array name="housing_type_array">
+        <item>Pilihan…</item>
+        <item>SD</item>
+        <item>SMP</item>
+        <item>SMA</item>
+        <item>S1</item>
+        <item>S2</item>
+        <item>S3</item>
+    </string-array>
 
 </resources>

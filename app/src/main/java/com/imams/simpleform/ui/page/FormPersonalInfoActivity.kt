@@ -2,11 +2,19 @@ package com.imams.simpleform.ui.page
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.imams.simpleform.R
 import com.imams.simpleform.databinding.ActivityFormPersonalInfoBinding
-import com.imams.simpleform.util.*
+import com.imams.simpleform.util.errorMessage
+import com.imams.simpleform.util.maxInput
+import com.imams.simpleform.util.stringOrNull
+import com.imams.simpleform.util.warnMessage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -135,11 +143,29 @@ class FormPersonalInfoActivity : AppCompatActivity() {
 
     private fun initView() {
         with(binding) {
+            appbar.toolbar.setTitle(R.string.page_form_title_personal_info)
             etIdCard.maxInput(16)
             etFullName.maxInput(32)
             etBankAccount.maxInput(18)
             etEducation.maxInput(10)
             etDob.maxInput(8)
+            val arr = resources.getStringArray(R.array.education_array)
+            ArrayAdapter.createFromResource(this@FormPersonalInfoActivity, R.array.education_array,
+                android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerEducation.setSelection(-1);
+                spinnerEducation.adapter = adapter
+                spinnerEducation.onItemSelectedListener = object : OnItemSelectedListener {
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        printLog("spinner ${arr[p2]} $p2")
+                        if (p2 > 0) etEducation.setText(arr[p2])
+                        else etEducation.text = null
+                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) { printLog("spinner onNothing") }
+                }
+
+            }
         }
     }
 
@@ -148,7 +174,7 @@ class FormPersonalInfoActivity : AppCompatActivity() {
             btnSave.setOnClickListener {
                 printLog("initViewListener")
                 viewModel.performSave(
-                    id = etIdCard.text.longOrNull(),
+                    id = etIdCard.text.stringOrNull(),
                     name = etFullName.text.stringOrNull(),
                     bankAccount = etBankAccount.text.stringOrNull(),
                     education = etEducation.text.stringOrNull(),

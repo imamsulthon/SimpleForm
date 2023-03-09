@@ -32,14 +32,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                android:text="Masukan Data Diri Anda" />
+                android:text="Masukan Rincian Alamat Anda" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_id_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                android:hint="@string/field_label_id_card">
+                android:hint="@string/field_label_address">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_id_card"
@@ -50,35 +50,55 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_housing"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/field_label_housing"
+                    app:layout_constraintEnd_toStartOf="@id/spinner_housing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.5">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_housing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Spinner
+                    android:id="@+id/spinner_housing"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/til_housing"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_full_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
-                android:hint="@string/field_label_full_name">
+                android:hint="@string/field_label_address_no">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName|textCapWords|textCapSentences"
-                    tools:text="Imam Sulthon" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_bank_account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:hint="@string/field_label_bank_account">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_bank_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    tools:text="B2 18" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,8 +111,8 @@
                     android:id="@+id/til_education"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/field_label_id_education"
-                    app:layout_constraintEnd_toStartOf="@id/spinner_education"
+                    android:hint="@string/field_label_province"
+                    app:layout_constraintEnd_toStartOf="@id/spinner_province"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.5">
@@ -106,7 +126,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Spinner
-                    android:id="@+id/spinner_education"
+                    android:id="@+id/spinner_province"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -117,21 +137,6 @@
                     app:layout_constraintWidth_percent="0.5" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_dob"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:hint="@string/field_label_full_dob">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_dob"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="date" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

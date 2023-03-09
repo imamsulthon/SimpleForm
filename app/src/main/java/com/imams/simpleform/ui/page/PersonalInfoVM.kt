@@ -43,7 +43,7 @@ class PersonalInfoVM @Inject constructor(
     }
 
     fun performSave(
-        id: Long?,
+        id: String?,
         name: String?,
         bankAccount: String?,
         education: String?,
@@ -55,7 +55,7 @@ class PersonalInfoVM @Inject constructor(
 
             if (id == null) {
                 _idField.postValue(FieldState.IsNullOrEmpty(true))
-            } else if (id.toString().checkValidIdCardNumber()) {
+            } else if (!id.checkValidIdCardNumber()) {
                 _idField.postValue(FieldState.Warn("Nomor KTP harus 15 digit angka"))
             } else {
                 _idField.postValue(FieldState.Valid())
