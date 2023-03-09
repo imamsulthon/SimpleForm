@@ -1,5 +1,6 @@
 package com.imams.simpleform.ui.page
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -14,6 +15,8 @@ class FormPersonalInfoActivity : AppCompatActivity() {
     private val binding by lazy { ActivityFormPersonalInfoBinding.inflate(layoutInflater) }
 
     private val viewModel: PersonalInfoVM by viewModels()
+
+    private val sequentialNavigation = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,6 +127,9 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                     }
                 }
             }
+            doneSave.observe(this@FormPersonalInfoActivity) {
+                it?.let { if (it) navigate() }
+            }
         }
     }
 
@@ -149,6 +155,14 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                     dob = etDob.text.stringOrNull(),
                 )
             }
+        }
+    }
+
+    private fun navigate() {
+        if (sequentialNavigation) {
+            startActivity(Intent(this, FormAddressInfoActivity::class.java))
+        } else {
+            finish()
         }
     }
 
