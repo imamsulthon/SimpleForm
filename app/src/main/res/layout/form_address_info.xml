@@ -35,18 +35,19 @@
                 android:text="Masukan Rincian Alamat Anda" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_id_card"
+                android:id="@+id/til_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:hint="@string/field_label_address">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_id_card"
+                    android:id="@+id/et_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:maxEms="16" />
+                    android:inputType="textPostalAddress"
+                    android:maxLines="3"
+                    tools:text="@string/text_place_holder_long" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,17 +88,17 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_full_name"
+                android:id="@+id/til_address_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="10dp"
                 android:hint="@string/field_label_address_no">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_full_name"
+                    android:id="@+id/et_address_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName|textCapWords|textCapSentences"
+                    android:inputType="textPostalAddress"
                     tools:text="B2 18" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -108,7 +109,7 @@
                 android:layout_marginVertical="10dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_education"
+                    android:id="@+id/til_province"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="@string/field_label_province"
@@ -118,10 +119,13 @@
                     app:layout_constraintWidth_percent="0.5">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_education"
+                        android:id="@+id/et_province"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="false" />
+                        android:focusable="false"
+                        android:inputType="none"
+                        android:textSize="11sp"
+                        android:enabled="false"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,7 +136,7 @@
                     android:layout_marginStart="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/til_education"
+                    app:layout_constraintStart_toEndOf="@id/til_province"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.5" />
 

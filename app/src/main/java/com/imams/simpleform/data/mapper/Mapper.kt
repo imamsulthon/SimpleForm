@@ -2,6 +2,9 @@ package com.imams.simpleform.data.mapper
 
 import com.imams.simpleform.data.source.local.entity.FormDataEntity
 import com.imams.simpleform.data.model.PersonalInfo
+import com.imams.simpleform.data.model.Province
+import com.imams.simpleform.data.source.local.entity.ProvinceEntity
+import com.imams.simpleform.data.source.remote.ProvinceResponse
 
 object Mapper {
 
@@ -24,4 +27,23 @@ object Mapper {
         province = null,
         housing = null,
     )
+
+    fun List<ProvinceEntity>.toModels(): List<Province> {
+        return this.map { it.toModel() }
+    }
+    fun ProvinceResponse.toEntity() = ProvinceEntity(
+        id = id.orEmpty(),
+        name = name.orEmpty()
+    )
+
+    fun ProvinceResponse.toModel() = Province(
+        id = id.orEmpty(),
+        name = name.orEmpty()
+    )
+
+    fun ProvinceEntity.toModel() = Province(
+        id = id,
+        name = name
+    )
+
 }

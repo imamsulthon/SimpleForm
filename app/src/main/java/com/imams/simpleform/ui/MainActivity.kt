@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.imams.simpleform.databinding.ActivityMainBinding
+import com.imams.simpleform.ui.page.FormAddressInfoActivity
 import com.imams.simpleform.ui.page.FormPersonalInfoActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnRegistrationPageParallel.setOnClickListener {
-
+                startActivity(Intent(this@MainActivity, FormAddressInfoActivity::class.java))
             }
 
             btnConfiguration.setOnClickListener {
