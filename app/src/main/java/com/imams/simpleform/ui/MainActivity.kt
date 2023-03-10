@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.imams.simpleform.databinding.ActivityMainBinding
 import com.imams.simpleform.ui.page.FormAddressInfoActivity
 import com.imams.simpleform.ui.page.FormPersonalInfoActivity
+import com.imams.simpleform.ui.page.ReviewPageActivity
+import com.imams.simpleform.util.DummyData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,11 +28,18 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnRegistrationPageParallel.setOnClickListener {
-                startActivity(Intent(this@MainActivity, FormAddressInfoActivity::class.java))
+                // todo delete for testing purpose
+                startActivity(Intent(this@MainActivity, FormAddressInfoActivity::class.java).apply {
+                    putExtra(FormAddressInfoActivity.NAV, false)
+                })
             }
 
             btnConfiguration.setOnClickListener {
-
+                // todo delete for testing purpose
+                startActivity(Intent(this@MainActivity, ReviewPageActivity::class.java).apply {
+                    putExtra(ReviewPageActivity.NAV, false)
+                    putExtra(ReviewPageActivity.DATA, DummyData.createFullData())
+                })
             }
         }
     }

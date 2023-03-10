@@ -12,6 +12,7 @@
     <string name="btn_save">Simpan</string>
     <string name="btn_save_continue">Simpan &amp; Lanjut</string>
     <string name="btn_done">Selesai</string>
+    <string name="btn_submit">Submit</string>
 
     <string name="page_form_title_address_info">Detail Alamat</string>
     <string name="field_label_address">Alamat Domisili</string>
@@ -19,6 +20,8 @@
     <string name="field_label_housing">Tipe Tempat Tinggal</string>
     <string name="field_label_province">Provinsi</string>
     <string name="text_place_holder_long">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</string>
+
+    <string name="page_form_title_review">Informasi Registrasi</string>
 
     <string-array name="education_array">
         <item>Pilihan…</item>

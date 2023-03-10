@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.imams.simpleform.R
+import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.databinding.ActivityFormPersonalInfoBinding
 import com.imams.simpleform.util.errorMessage
 import com.imams.simpleform.util.maxInput
@@ -24,7 +25,12 @@ class FormPersonalInfoActivity : AppCompatActivity() {
 
     private val viewModel: PersonalInfoVM by viewModels()
 
-    private val sequentialNavigation = true
+    private var sequentialNav = true
+
+    companion object {
+        const val TAG = "tag_data"
+        const val NAV = "tag_navigation"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +43,10 @@ class FormPersonalInfoActivity : AppCompatActivity() {
     }
 
     private fun fetchData() {
-
+        with(intent) {
+            sequentialNav = getBooleanExtra(NAV, true)
+            getStringExtra(TAG)?.let { viewModel.initData(it) }
+        }
     }
 
     private fun initLiveData() {
@@ -136,7 +145,7 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                 }
             }
             doneSave.observe(this@FormPersonalInfoActivity) {
-                it?.let { if (it) navigate() }
+                it?.let { if (it.first) navigate(sequentialNav, it.second) }
             }
         }
     }
@@ -184,18 +193,25 @@ class FormPersonalInfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigate() {
-        if (sequentialNavigation) {
-            startActivity(Intent(this, FormAddressInfoActivity::class.java))
+    private fun navigate(sequentialNav: Boolean, id: String, data: PersonalInfo? = null) {
+        if (sequentialNav) {
+            startActivity(
+                Intent(this, FormAddressInfoActivity::class.java).apply {
+                    putExtra(FormAddressInfoActivity.TAG, id)
+                    putExtra(FormAddressInfoActivity.NAV, true)
+                    data?.let {putExtra(FormAddressInfoActivity.DATA, it) }
+                })
         } else {
             finish()
         }
     }
 
+    // todo: change to SnackBar
     private fun warnField(fieldName: String) {
         showToast("$fieldName cannot be empty")
     }
 
+    // todo: change to SnackBar
     private fun showToast(msg: String, page: String = "Form Personal Info") {
         Toast.makeText(this, "$page: $msg", Toast.LENGTH_SHORT).show()
     }

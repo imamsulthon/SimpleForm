@@ -30,7 +30,12 @@
         <activity
             android:name=".ui.page.FormPersonalInfoActivity"
             android:exported="false" />
-        <activity android:name="com.imams.simpleform.ui.page.FormAddressInfoActivity" />
+        <activity
+            android:name=".ui.page.FormAddressInfoActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.page.ReviewPageActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -12,7 +12,7 @@ interface RegistrationDao {
     fun getAllUser(): Flow<List<FormDataEntity>>
 
     @Query("SELECT * FROM ${Constants.DBValue.PersonalInfo} WHERE id =:id")
-    fun getUserById(id: Int): Flow<FormDataEntity>
+    fun getUserById(id: String): Flow<FormDataEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addUser(dataEntity: FormDataEntity)

@@ -10,6 +10,7 @@ import com.imams.simpleform.data.util.DataExt.checkValidDate
 import com.imams.simpleform.data.util.DataExt.checkValidIdCardNumber
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,12 +34,17 @@ class PersonalInfoVM @Inject constructor(
     private val _dobField = MutableLiveData<FieldState<String>>()
     val dobField: LiveData<FieldState<String>> = _dobField
 
-    private val _doneSave = MutableLiveData<Boolean>()
-    val doneSave: LiveData<Boolean> = _doneSave
+    private val _doneSave = MutableLiveData<Pair<Boolean, String>>()
+    val doneSave: LiveData<Pair<Boolean, String>> = _doneSave
 
-    fun fetchPersonalInfoData(id: Int) {
+    fun initData(id: String) {
+        fetchData(id)
+    }
+
+    private fun fetchData(id: String) {
         viewModelScope.launch {
-            val data = repository.getPersonalInfo(id)
+            val data = repository.getPersonalInfo(id).last()
+            printLog("fetchData $data")
         }
     }
 
@@ -95,20 +101,20 @@ class PersonalInfoVM @Inject constructor(
             if (vc.allValid()) {
                 printLog("all field is valid")
                 savePersonalInfoData(
-                    PersonalInfo(123, name.orEmpty(), bankAccount.orEmpty(), education.orEmpty(), dob.orEmpty())
+                    PersonalInfo(id.orEmpty(), name.orEmpty(), bankAccount.orEmpty(), education.orEmpty(), dob.orEmpty())
                 )
             } else {
                 printLog("some field not valid")
-                _doneSave.postValue(false)
+                _doneSave.postValue(Pair(false, "invalid"))
             }
         }
     }
 
     private fun savePersonalInfoData(data: PersonalInfo) {
         viewModelScope.launch {
-//            repository.savePersonalInfo(data)
+            repository.savePersonalInfo(data)
             delay(1000)
-            _doneSave.postValue(true)
+            _doneSave.postValue(Pair(true, data.id))
         }
     }
 

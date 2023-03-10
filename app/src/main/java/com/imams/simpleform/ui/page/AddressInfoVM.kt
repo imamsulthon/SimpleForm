@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.imams.simpleform.data.mapper.Mapper.toEntity
+import com.imams.simpleform.data.model.AddressInfo
 import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.model.Province
 import com.imams.simpleform.data.repository.ProvinceDataRepository
@@ -11,6 +13,7 @@ import com.imams.simpleform.data.repository.RegistrationDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,19 +35,25 @@ class AddressInfoVM @Inject constructor(
     private val _provinceField = MutableLiveData<FieldState<String>>()
     val provinceField: LiveData<FieldState<String>> = _provinceField
 
-    private val _doneSave = MutableLiveData<Boolean>()
-    val doneSave: LiveData<Boolean> = _doneSave
+    private val _doneSave = MutableLiveData<Pair<Boolean, String>>()
+    val doneSave: LiveData<Pair<Boolean, String>> = _doneSave
 
     private val _provinceData = MutableLiveData<List<Province>>()
     val provinceList: LiveData<List<Province>> = _provinceData
 
-    fun fetchData() {
+    private var personalInfo: PersonalInfo? = null
+
+    fun fetchData(id: String) {
         fetchProvinceData()
-        initData()
+        initData(id)
     }
 
-    private fun initData() {
+    private fun initData(id: String) {
         viewModelScope.launch {
+            personalInfo = repository.getPersonalInfo(id).last()
+            repository.getAddressInfo(id).collectLatest {
+                printLog("address $it")
+            }
         }
     }
 
@@ -67,7 +76,7 @@ class AddressInfoVM @Inject constructor(
             printLog("id: $address, name: $houseType, bank: $addressNo, edu: $province")
             val vc = ValidityCheck()
 
-            if (address == null) {
+            if (address.isNullOrEmpty()) {
                 _addressField.postValue(FieldState.IsNullOrEmpty(true))
             } else {
                 _addressField.postValue(FieldState.Valid())
@@ -95,23 +104,31 @@ class AddressInfoVM @Inject constructor(
                 vc.province = true
             }
 
-            if (vc.allValid()) {
+            if (vc.allValid() && personalInfo != null) {
                 printLog("all field is valid")
-//                savePersonalInfoData(
-//                    PersonalInfo(123, houseType.orEmpty(), addressNo.orEmpty(), province.orEmpty())
-//                )
+                submitAddress(
+                    AddressInfo("", address.orEmpty(), houseType.orEmpty(), addressNo.orEmpty(), province.orEmpty())
+                )
             } else {
                 printLog("some field not valid")
-                _doneSave.postValue(false)
+                _doneSave.postValue(Pair(false, "invalid"))
             }
         }
     }
 
-    private fun savePersonalInfoData(data: PersonalInfo) {
+    private fun submitAddress(data: AddressInfo) {
+        if (personalInfo == null) {
+            _doneSave.postValue(Pair(false, "invalid"))
+            return
+        }
+        personalInfo?.let { saveCompleteData(it, data.apply { id = it.id }) }
+    }
+
+    private fun saveCompleteData(personalInfo: PersonalInfo, addressInfo: AddressInfo) {
         viewModelScope.launch {
-//            repository.savePersonalInfo(data)
+            repository.saveCompleteRegistration(personalInfo.toEntity(addressInfo))
             delay(1000)
-            _doneSave.postValue(true)
+            _doneSave.postValue(Pair(true, addressInfo.id))
         }
     }
 

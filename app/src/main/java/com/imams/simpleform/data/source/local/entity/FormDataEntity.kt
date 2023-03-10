@@ -10,7 +10,7 @@ import com.imams.simpleform.data.util.Constants
 data class FormDataEntity(
 
     @PrimaryKey
-    @ColumnInfo("id") var id: Int,
+    @ColumnInfo("id") var id: String,
     @ColumnInfo("full_name") var fullName: String,
     @ColumnInfo("bank_account") var bankAccount: String,
     @ColumnInfo("education") var education: String,

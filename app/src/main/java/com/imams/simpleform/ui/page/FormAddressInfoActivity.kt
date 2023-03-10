@@ -1,5 +1,6 @@
 package com.imams.simpleform.ui.page
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -28,8 +29,13 @@ class FormAddressInfoActivity: AppCompatActivity() {
         ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, provinceList)
     }
 
-    private val sequentialNavigation = true
+    private var sequentialNavigation = true
 
+    companion object {
+        const val TAG = "tag_address"
+        const val DATA = "tag_data"
+        const val NAV = "tag_navigation"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +48,12 @@ class FormAddressInfoActivity: AppCompatActivity() {
     }
 
     private fun fetchData() {
-        viewModel.fetchData()
+        with(intent) {
+            sequentialNavigation = getBooleanExtra(NAV, sequentialNavigation)
+            getStringExtra(TAG)?.let {
+                viewModel.fetchData(it)
+            }
+        }
     }
 
     private fun initLiveData() {
@@ -122,7 +133,7 @@ class FormAddressInfoActivity: AppCompatActivity() {
             }
 
             doneSave.observe(this@FormAddressInfoActivity) {
-                it?.let { if (it) navigate() }
+                it?.let { if (it.first) navigate(sequentialNavigation, it.second) }
             }
 
             provinceList.observe(this@FormAddressInfoActivity) {
@@ -185,15 +196,17 @@ class FormAddressInfoActivity: AppCompatActivity() {
 
     private fun updateProvinceOptionals(list: List<Province>) {
         printLog("setProvinceData init ${list.size} $list")
+        val l = list.map { it.name }
         provinceList.clear()
-        provinceList.addAll(list.map { it.name })
+        provinceList.addAll(l)
         provinceAdapter.notifyDataSetChanged()
     }
 
-    private fun navigate() {
-        if (sequentialNavigation) {
-//            startActivity(Intent(this, FormAddressInfoActivity::class.java))
-            finish()
+    private fun navigate(sequentialNav: Boolean, id: String) {
+        if (sequentialNav) {
+            startActivity(Intent(this, ReviewPageActivity::class.java).apply {
+                putExtra(ReviewPageActivity.TAG, id)
+            })
         } else {
             finish()
         }
