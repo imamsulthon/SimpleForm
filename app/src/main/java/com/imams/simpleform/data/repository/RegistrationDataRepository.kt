@@ -20,6 +20,6 @@ interface RegistrationDataRepository{
 
     suspend fun saveCompleteRegistration(data: FormDataEntity)
 
-    fun getAllCompleteUsers()
+    fun getAllCompleteUsers(): Flow<List<RegistrationInfo>>
 
 }

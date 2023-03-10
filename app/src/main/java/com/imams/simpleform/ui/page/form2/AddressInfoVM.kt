@@ -1,4 +1,4 @@
-package com.imams.simpleform.ui.page
+package com.imams.simpleform.ui.page.form2
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +10,7 @@ import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.model.Province
 import com.imams.simpleform.data.repository.ProvinceDataRepository
 import com.imams.simpleform.data.repository.RegistrationDataRepository
+import com.imams.simpleform.ui.page.FieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -43,9 +44,9 @@ class AddressInfoVM @Inject constructor(
 
     private var personalInfo: PersonalInfo? = null
 
-    fun fetchData(id: String) {
+    fun fetchData(id: String?) {
         fetchProvinceData()
-        initData(id)
+        id?.let { initData(it) }
     }
 
     private fun initData(id: String) {
@@ -110,15 +111,17 @@ class AddressInfoVM @Inject constructor(
                     AddressInfo("", address.orEmpty(), houseType.orEmpty(), addressNo.orEmpty(), province.orEmpty())
                 )
             } else {
-                printLog("some field not valid")
-                _doneSave.postValue(Pair(false, "invalid"))
+                val msg = "some fields are not valid or you access from restricted entry point"
+                printLog(msg)
+                _doneSave.postValue(Pair(false, msg))
             }
         }
     }
 
     private fun submitAddress(data: AddressInfo) {
         if (personalInfo == null) {
-            _doneSave.postValue(Pair(false, "invalid"))
+            val msg = "invalid. You hadn't filled data on Personal Info Page"
+            _doneSave.postValue(Pair(false, msg))
             return
         }
         personalInfo?.let { saveCompleteData(it, data.apply { id = it.id }) }

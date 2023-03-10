@@ -2,7 +2,7 @@ package com.imams.simpleform
 
 import com.imams.simpleform.data.util.DataExt.checkValidDate
 import com.imams.simpleform.data.util.DataExt.checkValidIdCardNumber
-import com.imams.simpleform.ui.page.PersonalInfoVM
+import com.imams.simpleform.ui.page.form1.PersonalInfoVM
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

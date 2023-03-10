@@ -42,6 +42,8 @@ object Mapper {
         housing = address.houseType,
     )
 
+    fun List<FormDataEntity>.toRegModels(): List<RegistrationInfo> = this.map { it.toModel() }
+
     fun FormDataEntity.toModel() = RegistrationInfo(
         id = id,
         fullName = fullName,
@@ -66,7 +68,7 @@ object Mapper {
         housing = houseType,
     )
 
-    fun List<ProvinceEntity>.toModels(): List<Province> {
+    fun List<ProvinceEntity>.toProvModels(): List<Province> {
         return this.map { it.toModel() }
     }
     fun ProvinceResponse.toEntity() = ProvinceEntity(

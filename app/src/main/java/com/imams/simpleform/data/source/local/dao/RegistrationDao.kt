@@ -1,4 +1,4 @@
-package com.imams.simpleform.data.source.local
+package com.imams.simpleform.data.source.local.dao
 
 import androidx.room.*
 import com.imams.simpleform.data.source.local.entity.FormDataEntity

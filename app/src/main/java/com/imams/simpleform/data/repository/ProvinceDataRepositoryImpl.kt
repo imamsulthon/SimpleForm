@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.imams.simpleform.data.mapper.Mapper.toEntity
 import com.imams.simpleform.data.mapper.Mapper.toModel
-import com.imams.simpleform.data.mapper.Mapper.toModels
+import com.imams.simpleform.data.mapper.Mapper.toProvModels
 import com.imams.simpleform.data.model.Province
 import com.imams.simpleform.data.source.local.dao.ProvinceDao
 import com.imams.simpleform.data.source.remote.ProvinceApi
@@ -20,17 +20,17 @@ class ProvinceDataRepositoryImpl @Inject constructor(
 ): ProvinceDataRepository {
 
     override suspend fun getProvinces(): Flow<List<Province>> {
-        return flow {
+        return channelFlow {
             try {
                 val response = provinceApi.getProvinceData()
                 val entities = response.map { it.toEntity() }
                 provinceDao.addProvinces(entities)
                 provinceDao.getAllProvince().collectLatest {
-                    emit(it.map { e -> e.toModel() })
+                    send(it.map { e -> e.toModel() })
                 }
             } catch (e: Exception) {
                 printLog("catch 1 ${e.message}")
-                emit(defaultProvince().map { it.toModel() })
+                send(defaultProvince().map { it.toModel() })
             }
         }.flowOn(Dispatchers.IO).catch {
             printLog("catch 2 ${it.message}")
@@ -50,7 +50,7 @@ class ProvinceDataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getProvincesLocal(): Flow<List<Province>> {
-        return provinceDao.getAllProvince().map {it.toModels() }
+        return provinceDao.getAllProvince().map {it.toProvModels() }
     }
 
     private fun printLog(msg: String, tag: String? = "ProvinceRepo") {

@@ -1,4 +1,4 @@
-package com.imams.simpleform.ui.page
+package com.imams.simpleform.ui.page.form1
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +8,7 @@ import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.repository.RegistrationDataRepository
 import com.imams.simpleform.data.util.DataExt.checkValidDate
 import com.imams.simpleform.data.util.DataExt.checkValidIdCardNumber
+import com.imams.simpleform.ui.page.FieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.last
@@ -36,6 +37,9 @@ class PersonalInfoVM @Inject constructor(
 
     private val _doneSave = MutableLiveData<Pair<Boolean, String>>()
     val doneSave: LiveData<Pair<Boolean, String>> = _doneSave
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
 
     fun initData(id: String) {
         fetchData(id)
@@ -112,9 +116,11 @@ class PersonalInfoVM @Inject constructor(
 
     private fun savePersonalInfoData(data: PersonalInfo) {
         viewModelScope.launch {
+            _loading.postValue(true)
             repository.savePersonalInfo(data)
             delay(1000)
             _doneSave.postValue(Pair(true, data.id))
+            _loading.postValue(false)
         }
     }
 

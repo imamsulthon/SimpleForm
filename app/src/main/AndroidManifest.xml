@@ -28,13 +28,15 @@
             android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.page.FormPersonalInfoActivity"
+            android:name=".ui.page.form1.FormPersonalInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.page.FormAddressInfoActivity"
-            android:exported="false"/>
+            android:name=".ui.page.form2.FormAddressInfoActivity"
+            android:exported="false" />
         <activity
-            android:name=".ui.page.ReviewPageActivity"
+            android:name=".ui.page.review.ReviewPageActivity"
+            android:exported="false" />
+        <activity android:name=".ui.AllRegistrationActivity"
             android:exported="false"/>
     </application>
 

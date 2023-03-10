@@ -1,4 +1,4 @@
-package com.imams.simpleform.ui.page
+package com.imams.simpleform.ui.page.review
 
 import android.annotation.SuppressLint
 import android.os.Build

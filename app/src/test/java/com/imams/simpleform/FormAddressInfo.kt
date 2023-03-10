@@ -1,6 +1,6 @@
 package com.imams.simpleform
 
-import com.imams.simpleform.ui.page.AddressInfoVM
+import com.imams.simpleform.ui.page.form2.AddressInfoVM
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

@@ -1,4 +1,4 @@
-package com.imams.simpleform.ui.page
+package com.imams.simpleform.ui.page.form1
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,9 +9,12 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.imams.simpleform.R
 import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.databinding.ActivityFormPersonalInfoBinding
+import com.imams.simpleform.ui.page.FieldState
+import com.imams.simpleform.ui.page.form2.FormAddressInfoActivity
 import com.imams.simpleform.util.errorMessage
 import com.imams.simpleform.util.maxInput
 import com.imams.simpleform.util.stringOrNull
@@ -147,6 +150,9 @@ class FormPersonalInfoActivity : AppCompatActivity() {
             doneSave.observe(this@FormPersonalInfoActivity) {
                 it?.let { if (it.first) navigate(sequentialNav, it.second) }
             }
+            loading.observe(this@FormPersonalInfoActivity) {
+                it?.let { showLoading(it) }
+            }
         }
     }
 
@@ -190,6 +196,13 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                     dob = etDob.text.stringOrNull(),
                 )
             }
+        }
+    }
+
+    private fun showLoading(visible: Boolean) {
+        with(binding) {
+            loading.isVisible= visible
+            btnSave.isEnabled = !visible
         }
     }
 

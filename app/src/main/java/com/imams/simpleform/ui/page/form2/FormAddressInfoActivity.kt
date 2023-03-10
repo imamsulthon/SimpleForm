@@ -1,15 +1,18 @@
-package com.imams.simpleform.ui.page
+package com.imams.simpleform.ui.page.form2
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.imams.simpleform.R
 import com.imams.simpleform.data.model.Province
 import com.imams.simpleform.databinding.FormAddressInfoBinding
+import com.imams.simpleform.ui.page.FieldState
+import com.imams.simpleform.ui.page.review.ReviewPageActivity
 import com.imams.simpleform.util.errorMessage
 import com.imams.simpleform.util.maxInput
 import com.imams.simpleform.util.stringOrNull
@@ -50,7 +53,7 @@ class FormAddressInfoActivity: AppCompatActivity() {
     private fun fetchData() {
         with(intent) {
             sequentialNavigation = getBooleanExtra(NAV, sequentialNavigation)
-            getStringExtra(TAG)?.let {
+            getStringExtra(TAG).let {
                 viewModel.fetchData(it)
             }
         }
@@ -133,7 +136,7 @@ class FormAddressInfoActivity: AppCompatActivity() {
             }
 
             doneSave.observe(this@FormAddressInfoActivity) {
-                it?.let { if (it.first) navigate(sequentialNavigation, it.second) }
+                it?.let { if (it.first) navigate(sequentialNavigation, it.second) else showToast(it.second) }
             }
 
             provinceList.observe(this@FormAddressInfoActivity) {
@@ -210,6 +213,11 @@ class FormAddressInfoActivity: AppCompatActivity() {
         } else {
             finish()
         }
+    }
+
+    // todo: change to SnackBar
+    private fun showToast(msg: String, page: String = "Form Address Info") {
+        Toast.makeText(this, "$page: $msg", Toast.LENGTH_LONG).show()
     }
 
     private fun printLog(msg: String, tag: String? = "FormAddressInfo Page") {

@@ -1,4 +1,4 @@
-package com.imams.simpleform.ui.page
+package com.imams.simpleform.ui.page.review
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

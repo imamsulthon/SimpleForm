@@ -3,6 +3,7 @@ package com.imams.simpleform.data.source.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.imams.simpleform.data.source.local.dao.ProvinceDao
+import com.imams.simpleform.data.source.local.dao.RegistrationDao
 import com.imams.simpleform.data.source.local.entity.FormDataEntity
 import com.imams.simpleform.data.source.local.entity.ProvinceEntity
 

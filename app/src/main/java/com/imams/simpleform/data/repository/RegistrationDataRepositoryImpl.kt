@@ -2,11 +2,12 @@ package com.imams.simpleform.data.repository
 
 import com.imams.simpleform.data.mapper.Mapper.toEntity
 import com.imams.simpleform.data.mapper.Mapper.toModel
+import com.imams.simpleform.data.mapper.Mapper.toRegModels
 import com.imams.simpleform.data.mapper.Mapper.toPersonalInfo
 import com.imams.simpleform.data.model.AddressInfo
-import com.imams.simpleform.data.model.RegistrationInfo
 import com.imams.simpleform.data.model.PersonalInfo
-import com.imams.simpleform.data.source.local.RegistrationDao
+import com.imams.simpleform.data.model.RegistrationInfo
+import com.imams.simpleform.data.source.local.dao.RegistrationDao
 import com.imams.simpleform.data.source.local.entity.FormDataEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -45,8 +46,8 @@ class RegistrationDataRepositoryImpl @Inject constructor(
         registrationDao.addUser(data)
     }
 
-    override fun getAllCompleteUsers() {
-        TODO("Not yet implemented")
+    override fun getAllCompleteUsers(): Flow<List<RegistrationInfo>> {
+        return registrationDao.getAllUser().map {it.toRegModels() }
     }
 
     private fun printLog(msg: String, tag: String? = "RegistrationRepo") {
