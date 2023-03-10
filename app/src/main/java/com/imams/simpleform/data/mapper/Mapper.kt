@@ -1,9 +1,9 @@
 package com.imams.simpleform.data.mapper
 
 import com.imams.simpleform.data.model.AddressInfo
-import com.imams.simpleform.data.model.RegistrationInfo
 import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.model.Province
+import com.imams.simpleform.data.model.RegistrationInfo
 import com.imams.simpleform.data.source.local.entity.FormDataEntity
 import com.imams.simpleform.data.source.local.entity.ProvinceEntity
 import com.imams.simpleform.data.source.remote.ProvinceResponse
@@ -18,6 +18,14 @@ object Mapper {
         dob = dob,
     )
 
+    fun FormDataEntity.toAddressInfo() = AddressInfo(
+        id = id,
+        address = address.orEmpty(),
+        addressNo = addressNo.orEmpty(),
+        province = province.orEmpty(),
+        houseType = housing.orEmpty(),
+    )
+
     fun PersonalInfo.toEntity() = FormDataEntity(
         id = id,
         fullName = fullName,
@@ -28,6 +36,7 @@ object Mapper {
         addressNo = null,
         province = null,
         housing = null,
+        isSubmit = null,
     )
 
     fun PersonalInfo.toEntity(address: AddressInfo) = FormDataEntity(
@@ -40,6 +49,7 @@ object Mapper {
         addressNo = address.addressNo,
         province = address.province,
         housing = address.houseType,
+        isSubmit = false
     )
 
     fun List<FormDataEntity>.toRegModels(): List<RegistrationInfo> = this.map { it.toModel() }
@@ -54,6 +64,7 @@ object Mapper {
         addressNo = addressNo.orEmpty(),
         province = province.orEmpty(),
         houseType = housing.orEmpty(),
+        isSubmit = isSubmit ?: false
     )
 
     fun RegistrationInfo.toEntity(submit: Boolean = false) = FormDataEntity(
@@ -66,6 +77,7 @@ object Mapper {
         addressNo = addressNo,
         province = province,
         housing = houseType,
+        isSubmit = submit
     )
 
     fun List<ProvinceEntity>.toProvModels(): List<Province> {

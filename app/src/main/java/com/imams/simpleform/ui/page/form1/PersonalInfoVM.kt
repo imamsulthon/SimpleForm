@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imams.simpleform.data.model.PersonalInfo
-import com.imams.simpleform.data.repository.RegistrationDataRepository
 import com.imams.simpleform.data.util.DataExt.checkValidDate
 import com.imams.simpleform.data.util.DataExt.checkValidIdCardNumber
+import com.imams.simpleform.domain.FormPersonalInfoUseCase
 import com.imams.simpleform.ui.page.FieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PersonalInfoVM @Inject constructor(
-    private val repository: RegistrationDataRepository
+    private val useCase: FormPersonalInfoUseCase,
 ) : ViewModel() {
 
     private val _idField = MutableLiveData<FieldState<Long>>()
@@ -47,7 +47,7 @@ class PersonalInfoVM @Inject constructor(
 
     private fun fetchData(id: String) {
         viewModelScope.launch {
-            val data = repository.getPersonalInfo(id).last()
+            val data = useCase.getPersonalInfo(id).last()
             printLog("fetchData $data")
         }
     }
@@ -117,7 +117,7 @@ class PersonalInfoVM @Inject constructor(
     private fun savePersonalInfoData(data: PersonalInfo) {
         viewModelScope.launch {
             _loading.postValue(true)
-            repository.savePersonalInfo(data)
+            useCase.savePersonalInfo(data)
             delay(1000)
             _doneSave.postValue(Pair(true, data.id))
             _loading.postValue(false)

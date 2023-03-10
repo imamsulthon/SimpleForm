@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imams.simpleform.data.mapper.Mapper.toEntity
+import com.imams.simpleform.data.mapper.Mapper.toModel
 import com.imams.simpleform.data.model.RegistrationInfo
 import com.imams.simpleform.data.repository.RegistrationDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,7 +37,7 @@ class ReviewPageVM @Inject constructor(
     fun fetchData(id: String) {
         viewModelScope.launch {
             repository.getCompleteRegistrationData(id).collectLatest {
-                _data.postValue(it)
+                _data.postValue(it.toModel())
             }
         }
     }

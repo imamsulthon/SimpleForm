@@ -91,7 +91,7 @@ class ReviewPageActivity : AppCompatActivity() {
                 tvValueBank.text = it.bankAccount
                 tvValueEdu.text= it.education
                 tvValueDob.text = it.dob
-                tvValueAddress.text= "${it.address} ${it.addressNo}"
+                tvValueAddress.text= "${it.address} No. ${it.addressNo}"
                 tvValueHouse.text = it.houseType
                 tvValueProvince.text = it.province
             }

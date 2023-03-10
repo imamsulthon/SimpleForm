@@ -4,12 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.imams.simpleform.data.mapper.Mapper.toEntity
 import com.imams.simpleform.data.model.AddressInfo
 import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.model.Province
-import com.imams.simpleform.data.repository.ProvinceDataRepository
-import com.imams.simpleform.data.repository.RegistrationDataRepository
+import com.imams.simpleform.domain.AddressFormUseCase
 import com.imams.simpleform.ui.page.FieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -19,8 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddressInfoVM @Inject constructor(
-    private val repository: RegistrationDataRepository,
-    private val provinceRepository: ProvinceDataRepository,
+    private val useCase: AddressFormUseCase,
 ): ViewModel() {
 
     private val _addressField = MutableLiveData<FieldState<Long>>()
@@ -53,10 +50,10 @@ class AddressInfoVM @Inject constructor(
 
     private fun initData(id: String) {
         viewModelScope.launch {
-            repository.getPersonalInfo(id).collectLatest {
+            useCase.getPersonalInfo(id).collectLatest {
                 personalInfo = it
             }
-            repository.getAddressInfo(id).collectLatest {
+            useCase.getAddressInfo(id).collectLatest {
                 printLog("address $it")
             }
         }
@@ -64,7 +61,7 @@ class AddressInfoVM @Inject constructor(
 
     private fun fetchProvinceData() {
         viewModelScope.launch {
-            provinceRepository.getProvinces().collectLatest {
+            useCase.getProvinces().collectLatest {
                 printLog("fetchProvinceData ${it.size} $it")
                 _provinceData.postValue(it)
             }
@@ -134,7 +131,7 @@ class AddressInfoVM @Inject constructor(
     private fun saveCompleteData(personalInfo: PersonalInfo, addressInfo: AddressInfo) {
         viewModelScope.launch {
             _loading.postValue(true)
-            repository.saveCompleteRegistration(personalInfo.toEntity(addressInfo))
+            useCase.saveAddressInfo(addressInfo, personalInfo)
             delay(1000)
             _doneSave.postValue(Pair(true, addressInfo.id))
             _loading.postValue(false)

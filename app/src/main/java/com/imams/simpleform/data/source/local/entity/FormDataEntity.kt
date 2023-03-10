@@ -19,4 +19,5 @@ data class FormDataEntity(
     @ColumnInfo("address_no") var addressNo: String?,
     @ColumnInfo("province") var province: String?,
     @ColumnInfo("housing") var housing: String?,
+    @ColumnInfo("is_submit") var isSubmit: Boolean?
 )
