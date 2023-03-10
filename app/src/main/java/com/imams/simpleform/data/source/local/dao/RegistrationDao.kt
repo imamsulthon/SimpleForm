@@ -20,4 +20,7 @@ interface RegistrationDao {
     @Delete
     suspend fun delete(data: FormDataEntity)
 
+    @Query("DELETE FROM ${Constants.DBValue.PersonalInfo}")
+    suspend fun delete()
+
 }

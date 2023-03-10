@@ -22,4 +22,6 @@ interface RegistrationDataRepository{
 
     fun getAllCompleteUsers(): Flow<List<RegistrationInfo>>
 
+    suspend fun clearAllData()
+
 }

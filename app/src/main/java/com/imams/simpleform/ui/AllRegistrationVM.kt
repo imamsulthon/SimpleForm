@@ -7,12 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.imams.simpleform.data.model.RegistrationInfo
 import com.imams.simpleform.data.repository.RegistrationDataRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class AllRegistrationVM @Inject constructor(
     private val repository: RegistrationDataRepository
 ): ViewModel() {
 
@@ -23,12 +24,18 @@ class MainViewModel @Inject constructor(
     fun fetchData() {
         viewModelScope.launch {
             repository.getAllCompleteUsers().collectLatest {
-                printLog("collectAll total ${it.size}, data $it")
+                printLog("collectAll total ${  it.size}, data $it")
                 _data.postValue(it)
             }
         }
     }
 
+    fun clearAllData() {
+        viewModelScope.launch {
+            repository.clearAllData()
+            delay(1000)
+        }
+    }
 
     private fun printLog(msg: String, tag: String? = "MainViewModel") {
         println("$tag: msg -> $msg")

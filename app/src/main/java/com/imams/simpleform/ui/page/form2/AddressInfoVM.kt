@@ -14,7 +14,6 @@ import com.imams.simpleform.ui.page.FieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,7 +41,7 @@ class AddressInfoVM @Inject constructor(
     private val _provinceData = MutableLiveData<List<Province>>()
     val provinceList: LiveData<List<Province>> = _provinceData
 
-    private var personalInfo: PersonalInfo? = null
+    var personalInfo: PersonalInfo? = null
 
     fun fetchData(id: String?) {
         fetchProvinceData()
@@ -51,7 +50,9 @@ class AddressInfoVM @Inject constructor(
 
     private fun initData(id: String) {
         viewModelScope.launch {
-            personalInfo = repository.getPersonalInfo(id).last()
+            repository.getPersonalInfo(id).collectLatest {
+                personalInfo = it
+            }
             repository.getAddressInfo(id).collectLatest {
                 printLog("address $it")
             }

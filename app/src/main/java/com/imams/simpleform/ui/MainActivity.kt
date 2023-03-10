@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.imams.simpleform.databinding.ActivityMainBinding
-import com.imams.simpleform.ui.page.form2.FormAddressInfoActivity
 import com.imams.simpleform.ui.page.form1.FormPersonalInfoActivity
+import com.imams.simpleform.ui.page.form2.FormAddressInfoActivity
 import com.imams.simpleform.ui.page.review.ReviewPageActivity
 import com.imams.simpleform.util.DummyData
 import dagger.hilt.android.AndroidEntryPoint

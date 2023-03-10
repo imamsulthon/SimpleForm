@@ -1,6 +1,7 @@
 package com.imams.simpleform.ui.page.review
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.imams.simpleform.R
 import com.imams.simpleform.data.model.RegistrationInfo
 import com.imams.simpleform.databinding.ActivityReviewPageBinding
+import com.imams.simpleform.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -91,6 +93,11 @@ class ReviewPageActivity : AppCompatActivity() {
     }
 
     private fun navigate(sequentialNav: Boolean, id: String) {
+        startActivity(
+            Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+        )
         finish()
     }
 

@@ -163,7 +163,7 @@ class FormPersonalInfoActivity : AppCompatActivity() {
             etFullName.maxInput(32)
             etBankAccount.maxInput(18)
             etEducation.maxInput(10)
-            etDob.maxInput(8)
+            etDob.maxInput(8) //  todo change to date picker
             val arr = resources.getStringArray(R.array.education_array)
             ArrayAdapter.createFromResource(this@FormPersonalInfoActivity, R.array.education_array,
                 android.R.layout.simple_spinner_item

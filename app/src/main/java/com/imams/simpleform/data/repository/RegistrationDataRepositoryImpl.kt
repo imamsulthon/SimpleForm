@@ -50,6 +50,10 @@ class RegistrationDataRepositoryImpl @Inject constructor(
         return registrationDao.getAllUser().map {it.toRegModels() }
     }
 
+    override suspend fun clearAllData() {
+        registrationDao.delete()
+    }
+
     private fun printLog(msg: String, tag: String? = "RegistrationRepo") {
         println("$tag: msg -> $msg")
     }
