@@ -24,6 +24,9 @@ class ReviewPageVM @Inject constructor(
     private val _doneSubmit = MutableLiveData<Pair<Boolean, String>>()
     val doneSubmit = _doneSubmit
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
     fun fetchData(init: RegistrationInfo) {
         viewModelScope.launch {
             _data.postValue(init)
@@ -41,9 +44,11 @@ class ReviewPageVM @Inject constructor(
     fun submitReview() {
         viewModelScope.launch {
             _data.value?.let {
-            repository.saveCompleteRegistration(it.toEntity())
+                _loading.postValue(true)
+                repository.saveCompleteRegistration(it.toEntity())
                 delay(1000)
                 _doneSubmit.postValue(Pair(true, it.id))
+                _loading.postValue(false)
             }
         }
     }

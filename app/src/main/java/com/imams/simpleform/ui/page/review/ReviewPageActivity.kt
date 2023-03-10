@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.imams.simpleform.R
 import com.imams.simpleform.data.model.RegistrationInfo
 import com.imams.simpleform.databinding.ActivityReviewPageBinding
@@ -65,6 +66,10 @@ class ReviewPageActivity : AppCompatActivity() {
             doneSubmit.observe(this@ReviewPageActivity) {
                 it?.let { if (it.first) navigate(sequentialNavigation, it.second) }
             }
+
+            loading.observe(this@ReviewPageActivity) {
+                it?.let { showLoading(it) }
+            }
         }
     }
 
@@ -86,9 +91,17 @@ class ReviewPageActivity : AppCompatActivity() {
                 tvValueBank.text = it.bankAccount
                 tvValueEdu.text= it.education
                 tvValueDob.text = it.dob
-                tvValueAddress.text= "$it.address ${it.addressNo}"
+                tvValueAddress.text= "${it.address} ${it.addressNo}"
+                tvValueHouse.text = it.houseType
                 tvValueProvince.text = it.province
             }
+        }
+    }
+
+    private fun showLoading(visible: Boolean) {
+        with(binding) {
+            loading.isVisible= visible
+            btnSave.isEnabled = !visible
         }
     }
 

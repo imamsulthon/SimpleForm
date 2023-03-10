@@ -26,8 +26,11 @@ class FormInfoPageTest {
         val validDate = amount.checkValidDate()
         val amount2 = "4546490"
         val invalidDate = amount2.checkValidDate()
+        val amount3 = "12/09/1993"
+        val invalidDate3 = amount3.checkValidDate()
         Assert.assertEquals(validDate, true)
         Assert.assertEquals(invalidDate, false)
+        Assert.assertEquals(invalidDate3, true)
     }
 
     @Test

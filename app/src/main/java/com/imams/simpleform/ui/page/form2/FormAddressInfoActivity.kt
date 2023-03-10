@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.imams.simpleform.R
 import com.imams.simpleform.data.model.Province
 import com.imams.simpleform.databinding.FormAddressInfoBinding
@@ -142,6 +143,10 @@ class FormAddressInfoActivity: AppCompatActivity() {
             provinceList.observe(this@FormAddressInfoActivity) {
                 it?.let { updateProvinceOptionals(it) }
             }
+
+            loading.observe(this@FormAddressInfoActivity) {
+                it?.let { showLoading(it) }
+            }
         }
     }
 
@@ -197,9 +202,17 @@ class FormAddressInfoActivity: AppCompatActivity() {
         }
     }
 
+    private fun showLoading(visible: Boolean) {
+        with(binding) {
+            loading.isVisible= visible
+            btnSave.isEnabled = !visible
+        }
+    }
+
     private fun updateProvinceOptionals(list: List<Province>) {
         printLog("setProvinceData init ${list.size} $list")
-        val l = list.map { it.name }
+        val l = mutableListOf("Pilih Provinsi")
+        l.addAll(list.map { it.name })
         provinceList.clear()
         provinceList.addAll(l)
         provinceAdapter.notifyDataSetChanged()

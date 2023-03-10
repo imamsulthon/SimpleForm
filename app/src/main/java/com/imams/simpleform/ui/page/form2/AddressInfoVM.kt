@@ -41,6 +41,9 @@ class AddressInfoVM @Inject constructor(
     private val _provinceData = MutableLiveData<List<Province>>()
     val provinceList: LiveData<List<Province>> = _provinceData
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
     var personalInfo: PersonalInfo? = null
 
     fun fetchData(id: String?) {
@@ -130,9 +133,11 @@ class AddressInfoVM @Inject constructor(
 
     private fun saveCompleteData(personalInfo: PersonalInfo, addressInfo: AddressInfo) {
         viewModelScope.launch {
+            _loading.postValue(true)
             repository.saveCompleteRegistration(personalInfo.toEntity(addressInfo))
             delay(1000)
             _doneSave.postValue(Pair(true, addressInfo.id))
+            _loading.postValue(false)
         }
     }
 

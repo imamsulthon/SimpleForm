@@ -12,13 +12,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.imams.simpleform.R
 import com.imams.simpleform.data.model.PersonalInfo
+import com.imams.simpleform.data.util.DataExt.asDD
+import com.imams.simpleform.data.util.DataExt.asMM
+import com.imams.simpleform.data.util.DataExt.asYYYY
+import com.imams.simpleform.data.util.DataExt.creatingDate
 import com.imams.simpleform.databinding.ActivityFormPersonalInfoBinding
+import com.imams.simpleform.ui.common.DatePickerFragment
 import com.imams.simpleform.ui.page.FieldState
 import com.imams.simpleform.ui.page.form2.FormAddressInfoActivity
-import com.imams.simpleform.util.errorMessage
-import com.imams.simpleform.util.maxInput
-import com.imams.simpleform.util.stringOrNull
-import com.imams.simpleform.util.warnMessage
+import com.imams.simpleform.util.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -163,7 +165,7 @@ class FormPersonalInfoActivity : AppCompatActivity() {
             etFullName.maxInput(32)
             etBankAccount.maxInput(18)
             etEducation.maxInput(10)
-            etDob.maxInput(8) //  todo change to date picker
+            etDob.maxInput(10) //  todo change to date picker
             val arr = resources.getStringArray(R.array.education_array)
             ArrayAdapter.createFromResource(this@FormPersonalInfoActivity, R.array.education_array,
                 android.R.layout.simple_spinner_item
@@ -195,6 +197,19 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                     education = etEducation.text.stringOrNull(),
                     dob = etDob.text.stringOrNull(),
                 )
+            }
+            listOf(btnDate, etDob).combinedClick {
+                val init = if (etDob.text.stringOrNull().isNullOrEmpty()) "02/02/1995" else etDob.text.toString()
+                val datePicker = DatePickerFragment(
+                    dd = init.asDD().toString(),
+                    mm = init.asMM().toString(),
+                    yyyy = init.asYYYY().toString(),
+                    callback = {d, m, y ->
+                        val dateFormatted = creatingDate(d, m+1, y)
+                        etDob.setText(dateFormatted)
+                    }
+                )
+                datePicker.show(supportFragmentManager, "date_picker")
             }
         }
     }
