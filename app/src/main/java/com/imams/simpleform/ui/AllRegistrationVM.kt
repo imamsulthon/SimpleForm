@@ -23,7 +23,7 @@ class AllRegistrationVM @Inject constructor(
 
     fun fetchData() {
         viewModelScope.launch {
-            repository.getAllCompleteUsers().collectLatest {
+            repository.getAllCompleteRegistration().collectLatest {
                 printLog("collectAll total ${  it.size}, data $it")
                 _data.postValue(it)
             }

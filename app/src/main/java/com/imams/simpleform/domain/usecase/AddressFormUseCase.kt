@@ -1,4 +1,4 @@
-package com.imams.simpleform.domain
+package com.imams.simpleform.domain.usecase
 
 import com.imams.simpleform.data.model.AddressInfo
 import com.imams.simpleform.data.model.PersonalInfo

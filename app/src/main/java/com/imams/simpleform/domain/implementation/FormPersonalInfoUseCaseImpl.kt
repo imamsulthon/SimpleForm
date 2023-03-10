@@ -1,4 +1,4 @@
-package com.imams.simpleform.domain
+package com.imams.simpleform.domain.implementation
 
 import com.imams.simpleform.data.mapper.Mapper.toEntity
 import com.imams.simpleform.data.mapper.Mapper.toModel
@@ -6,6 +6,7 @@ import com.imams.simpleform.data.mapper.Mapper.toPersonalInfo
 import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.model.RegistrationInfo
 import com.imams.simpleform.data.repository.RegistrationDataRepository
+import com.imams.simpleform.domain.usecase.FormPersonalInfoUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class FormPersonalInfoUseCaseImpl @Inject constructor(
     private var _data: RegistrationInfo? = null
 
     override fun getPersonalInfo(id: String): Flow<PersonalInfo> {
-        return repository.getCompleteRegistrationData(id).map {
+        return repository.getRegistrationData(id).map {
             _data = it.toModel()
             it.toPersonalInfo()
         }
@@ -34,7 +35,7 @@ class FormPersonalInfoUseCaseImpl @Inject constructor(
                 province = it.province
             }
         }
-        repository.saveCompleteRegistration(info)
+        repository.saveRegistrationData(info)
     }
 
 }

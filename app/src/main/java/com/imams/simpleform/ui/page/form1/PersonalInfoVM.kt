@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.util.DataExt.checkValidDate
 import com.imams.simpleform.data.util.DataExt.checkValidIdCardNumber
-import com.imams.simpleform.domain.FormPersonalInfoUseCase
+import com.imams.simpleform.domain.usecase.FormPersonalInfoUseCase
 import com.imams.simpleform.ui.page.FieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay

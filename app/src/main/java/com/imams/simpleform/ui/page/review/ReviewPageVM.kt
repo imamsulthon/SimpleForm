@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.imams.simpleform.data.mapper.Mapper.toEntity
-import com.imams.simpleform.data.mapper.Mapper.toModel
 import com.imams.simpleform.data.model.RegistrationInfo
-import com.imams.simpleform.data.repository.RegistrationDataRepository
+import com.imams.simpleform.domain.usecase.ReviewRegistrationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -16,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReviewPageVM @Inject constructor(
-    private val repository: RegistrationDataRepository,
+    private val useCase: ReviewRegistrationUseCase,
 ) : ViewModel() {
 
     private val _data = MutableLiveData<RegistrationInfo>()
@@ -36,8 +34,8 @@ class ReviewPageVM @Inject constructor(
 
     fun fetchData(id: String) {
         viewModelScope.launch {
-            repository.getCompleteRegistrationData(id).collectLatest {
-                _data.postValue(it.toModel())
+            useCase.getRegistrationData(id).collectLatest {
+                _data.postValue(it)
             }
         }
     }
@@ -46,7 +44,7 @@ class ReviewPageVM @Inject constructor(
         viewModelScope.launch {
             _data.value?.let {
                 _loading.postValue(true)
-                repository.saveCompleteRegistration(it.toEntity())
+                useCase.saveRegistrationForm(it)
                 delay(1000)
                 _doneSubmit.postValue(Pair(true, it.id))
                 _loading.postValue(false)

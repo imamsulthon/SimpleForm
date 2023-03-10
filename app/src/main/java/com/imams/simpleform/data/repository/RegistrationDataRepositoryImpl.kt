@@ -14,15 +14,15 @@ class RegistrationDataRepositoryImpl @Inject constructor(
     private val registrationDao: RegistrationDao,
 ): RegistrationDataRepository {
 
-    override fun getCompleteRegistrationData(id: String): Flow<FormDataEntity> {
+    override fun getRegistrationData(id: String): Flow<FormDataEntity> {
         return registrationDao.getUserById(id).flowOn(Dispatchers.IO)
     }
 
-    override suspend fun saveCompleteRegistration(data: FormDataEntity) {
+    override suspend fun saveRegistrationData(data: FormDataEntity) {
         registrationDao.addUser(data)
     }
 
-    override fun getAllCompleteUsers(): Flow<List<RegistrationInfo>> {
+    override fun getAllCompleteRegistration(): Flow<List<RegistrationInfo>> {
         return registrationDao.getAllUser().map {it.toRegModels() }
     }
 

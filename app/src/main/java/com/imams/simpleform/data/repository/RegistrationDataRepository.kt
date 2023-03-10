@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface RegistrationDataRepository{
 
-    fun getCompleteRegistrationData(id: String): Flow<FormDataEntity>
+    fun getRegistrationData(id: String): Flow<FormDataEntity>
 
-    suspend fun saveCompleteRegistration(data: FormDataEntity)
+    suspend fun saveRegistrationData(data: FormDataEntity)
 
-    fun getAllCompleteUsers(): Flow<List<RegistrationInfo>>
+    fun getAllCompleteRegistration(): Flow<List<RegistrationInfo>>
 
     suspend fun clearAllData()
 

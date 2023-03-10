@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.imams.simpleform.data.model.AddressInfo
 import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.model.Province
-import com.imams.simpleform.domain.AddressFormUseCase
+import com.imams.simpleform.domain.usecase.AddressFormUseCase
 import com.imams.simpleform.ui.page.FieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay

@@ -1,4 +1,4 @@
-package com.imams.simpleform.domain
+package com.imams.simpleform.domain.implementation
 
 import com.imams.simpleform.data.mapper.Mapper.toAddressInfo
 import com.imams.simpleform.data.mapper.Mapper.toEntity
@@ -8,6 +8,7 @@ import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.model.Province
 import com.imams.simpleform.data.repository.ProvinceDataRepository
 import com.imams.simpleform.data.repository.RegistrationDataRepository
+import com.imams.simpleform.domain.usecase.AddressFormUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -20,11 +21,11 @@ class AddressFormUseCaseImpl @Inject constructor(
 ): AddressFormUseCase {
 
     override fun getPersonalInfo(id: String): Flow<PersonalInfo> {
-        return repository.getCompleteRegistrationData(id).map { it.toPersonalInfo() }
+        return repository.getRegistrationData(id).map { it.toPersonalInfo() }
     }
 
     override fun getAddressInfo(id: String): Flow<AddressInfo> {
-        return repository.getCompleteRegistrationData(id).map { it.toAddressInfo() }
+        return repository.getRegistrationData(id).map { it.toAddressInfo() }
     }
 
     override suspend fun getProvinces(): Flow<List<Province>> = provinceRepo.getProvinces()
@@ -32,9 +33,9 @@ class AddressFormUseCaseImpl @Inject constructor(
 
     override suspend fun saveAddressInfo(addressInfo: AddressInfo, personalInfo: PersonalInfo) {
         val submitData = personalInfo.toEntity(addressInfo).apply {
-            isSubmit = true
+            isSubmit = false
         }
-        repository.saveCompleteRegistration(submitData)
+        repository.saveRegistrationData(submitData)
     }
 
 }
