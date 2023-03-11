@@ -74,7 +74,7 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                             binding.etIdCard.setText(it.data.toString())
                         }
                         is FieldState.IsNullOrEmpty -> {
-                            binding.tilIdCard.errorMessage("Nomor KTP")
+                            binding.tilIdCard.errorMessage(getString(R.string.field_label_id_card))
                         }
                         is FieldState.Warn -> {
                             binding.tilIdCard.warnMessage(it.message)
@@ -92,7 +92,7 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                             binding.etFullName.setText(it.data)
                         }
                         is FieldState.IsNullOrEmpty -> {
-                            binding.tilFullName.errorMessage("Nama Lengkap")
+                            binding.tilFullName.errorMessage(getString(R.string.field_label_full_name))
                         }
                         is FieldState.Warn -> {
                             binding.tilFullName.warnMessage(it.message)
@@ -107,10 +107,10 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                 it?.let {
                     when (it) {
                         is FieldState.Init -> {
-                            binding.etBankAccount.setText(it.data.toString())
+                            binding.etBankAccount.setText(it.data)
                         }
                         is FieldState.IsNullOrEmpty -> {
-                            binding.tilBankAccount.errorMessage("Nomor Rekening")
+                            binding.tilBankAccount.errorMessage(getString(R.string.field_label_bank_account))
                         }
                         is FieldState.Warn -> {
                             binding.tilBankAccount.warnMessage(it.message)
@@ -130,7 +130,7 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                             binding.etEducation.setText(it.data)
                         }
                         is FieldState.IsNullOrEmpty -> {
-                            binding.tilEducation.errorMessage("Pendidikan")
+                            binding.tilEducation.errorMessage(getString(R.string.field_label_id_education))
                         }
                         is FieldState.Warn -> {
                             binding.tilEducation.warnMessage(it.message)
@@ -182,7 +182,7 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerEducation.setSelection(-1);
+                spinnerEducation.setSelection(-1)
                 spinnerEducation.adapter = adapter
                 spinnerEducation.onItemSelectedListener = object : OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

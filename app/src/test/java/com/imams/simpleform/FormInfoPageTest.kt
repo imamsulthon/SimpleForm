@@ -1,24 +1,13 @@
 package com.imams.simpleform
 
+import com.imams.simpleform.data.util.DataExt
 import com.imams.simpleform.data.util.DataExt.checkValidDate
 import com.imams.simpleform.data.util.DataExt.checkValidIdCardNumber
 import com.imams.simpleform.ui.page.form1.PersonalInfoVM
-import org.junit.After
 import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
 
 class FormInfoPageTest {
-
-    @Before
-    fun setUp() {
-        // todo
-    }
-
-    @After
-    fun tearDown() {
-        // todo
-    }
 
     @Test
     fun validateDateInputFormat() {
@@ -68,6 +57,14 @@ class FormInfoPageTest {
             dob = true
         }
         Assert.assertEquals(vcFieldIdAllTrue.allValid(), true)
+    }
+
+    @Test
+    fun creatingDateTest() {
+        val d1 = DataExt.creatingDate(1, 10, 1980)
+        Assert.assertEquals(d1, "01/11/1980")
+        val d2 = DataExt.creatingDate(32, 12, 1993)
+        Assert.assertEquals(d2, "")
     }
 
 }

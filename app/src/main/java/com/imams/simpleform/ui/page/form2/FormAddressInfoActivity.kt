@@ -76,7 +76,7 @@ class FormAddressInfoActivity: AppCompatActivity() {
                             binding.etAddress.setText(it.data.toString())
                         }
                         is FieldState.IsNullOrEmpty -> {
-                            binding.tilAddress.errorMessage("Alamat KTP")
+                            binding.tilAddress.errorMessage(getString(R.string.field_label_address))
                         }
                         is FieldState.Warn -> {
                             binding.tilAddress.warnMessage(it.message)
@@ -94,7 +94,7 @@ class FormAddressInfoActivity: AppCompatActivity() {
                             binding.etHousing.setText(it.data)
                         }
                         is FieldState.IsNullOrEmpty -> {
-                            binding.tilHousing.errorMessage("Tipe Rumah")
+                            binding.tilHousing.errorMessage(getString(R.string.field_label_housing))
                         }
                         is FieldState.Warn -> {
                             binding.tilHousing.warnMessage(it.message)
@@ -109,10 +109,10 @@ class FormAddressInfoActivity: AppCompatActivity() {
                 it?.let {
                     when (it) {
                         is FieldState.Init -> {
-                            binding.etAddressNo.setText(it.data.toString())
+                            binding.etAddressNo.setText(it.data)
                         }
                         is FieldState.IsNullOrEmpty -> {
-                            binding.tilAddressNo.errorMessage("Nomor Rumah")
+                            binding.tilAddressNo.errorMessage(getString(R.string.field_label_address_no))
                         }
                         is FieldState.Warn -> {
                             binding.tilAddressNo.warnMessage(it.message)
@@ -131,7 +131,7 @@ class FormAddressInfoActivity: AppCompatActivity() {
                             binding.etProvince.setText(it.data)
                         }
                         is FieldState.IsNullOrEmpty -> {
-                            binding.tilProvince.errorMessage("Provinsi")
+                            binding.tilProvince.errorMessage(getString(R.string.field_label_province))
                         }
                         is FieldState.Warn -> {
                             binding.tilProvince.warnMessage(it.message)
@@ -168,7 +168,7 @@ class FormAddressInfoActivity: AppCompatActivity() {
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerHousing.setSelection(-1);
+                spinnerHousing.setSelection(-1)
                 spinnerHousing.adapter = adapter
                 spinnerHousing.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {

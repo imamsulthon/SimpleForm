@@ -129,7 +129,6 @@
                     app:layout_constraintEnd_toStartOf="@id/btn_date"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.65"
                     android:hint="@string/field_label_full_dob">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -151,11 +150,11 @@
                     android:padding="10dp"
                     android:text="Select Date"
                     android:layout_marginStart="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/til_dob"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/til_dob"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.35"/>
+                    app:layout_constraintTop_toTopOf="@id/til_dob"
+                    app:layout_constraintWidth_percent="0.3"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

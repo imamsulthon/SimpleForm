@@ -5,9 +5,6 @@ import android.text.InputFilter
 import android.view.View
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import java.time.DateTimeException
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 fun Editable?.stringOrNull(): String? {
     return this?.toString()
@@ -43,7 +40,7 @@ fun TextInputLayout.warnMessage(msg: String) {
 
 fun TextInputLayout.errorMessage(msg: String?) {
     if (msg == null) this.error = null
-    else this.error = "Kolom $msg harus diisi"
+    else this.error = "Kolom $msg tidak boleh kosong"
 }
 
 fun List<View>.combinedClick(click: () -> Unit) {

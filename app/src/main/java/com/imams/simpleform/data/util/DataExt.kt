@@ -37,7 +37,6 @@ object DataExt {
             val date = LocalDate.of(yyyy, mm + 1, dd)
             val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
             date.format(formatter)
-
         } catch (e: DateTimeException) {
             e.printStackTrace()
             ""
