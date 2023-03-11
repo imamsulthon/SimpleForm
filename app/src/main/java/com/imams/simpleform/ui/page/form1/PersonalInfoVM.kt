@@ -8,10 +8,10 @@ import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.util.DataExt.checkValidDate
 import com.imams.simpleform.data.util.DataExt.checkValidIdCardNumber
 import com.imams.simpleform.domain.usecase.FormPersonalInfoUseCase
-import com.imams.simpleform.ui.page.FieldState
+import com.imams.simpleform.ui.common.FieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,6 +19,9 @@ import javax.inject.Inject
 class PersonalInfoVM @Inject constructor(
     private val useCase: FormPersonalInfoUseCase,
 ) : ViewModel() {
+
+    private val _initData = MutableLiveData<PersonalInfo>()
+    val initData: LiveData<PersonalInfo> = _initData
 
     private val _idField = MutableLiveData<FieldState<Long>>()
     val idField: LiveData<FieldState<Long>> = _idField
@@ -47,8 +50,10 @@ class PersonalInfoVM @Inject constructor(
 
     private fun fetchData(id: String) {
         viewModelScope.launch {
-            val data = useCase.getPersonalInfo(id).last()
-            printLog("fetchData $data")
+            useCase.getPersonalInfo(id).collectLatest {
+                printLog("fetchData $it")
+                _initData.postValue(it)
+            }
         }
     }
 

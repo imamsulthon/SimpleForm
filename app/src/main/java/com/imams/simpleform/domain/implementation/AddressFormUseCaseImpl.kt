@@ -2,10 +2,12 @@ package com.imams.simpleform.domain.implementation
 
 import com.imams.simpleform.data.mapper.Mapper.toAddressInfo
 import com.imams.simpleform.data.mapper.Mapper.toEntity
+import com.imams.simpleform.data.mapper.Mapper.toModel
 import com.imams.simpleform.data.mapper.Mapper.toPersonalInfo
 import com.imams.simpleform.data.model.AddressInfo
 import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.model.Province
+import com.imams.simpleform.data.model.RegistrationInfo
 import com.imams.simpleform.data.repository.ProvinceDataRepository
 import com.imams.simpleform.data.repository.RegistrationDataRepository
 import com.imams.simpleform.domain.usecase.AddressFormUseCase
@@ -20,8 +22,13 @@ class AddressFormUseCaseImpl @Inject constructor(
     private val provinceRepo: ProvinceDataRepository
 ): AddressFormUseCase {
 
+    private var _data: RegistrationInfo? = null
+
     override fun getPersonalInfo(id: String): Flow<PersonalInfo> {
-        return repository.getRegistrationData(id).map { it.toPersonalInfo() }
+        return repository.getRegistrationData(id).map {
+        _data = it.toModel()
+            it.toPersonalInfo()
+        }
     }
 
     override fun getAddressInfo(id: String): Flow<AddressInfo> {
@@ -33,7 +40,7 @@ class AddressFormUseCaseImpl @Inject constructor(
 
     override suspend fun saveAddressInfo(addressInfo: AddressInfo, personalInfo: PersonalInfo) {
         val submitData = personalInfo.toEntity(addressInfo).apply {
-            isSubmit = false
+            isSubmit = _data?.isSubmit
         }
         repository.saveRegistrationData(submitData)
     }

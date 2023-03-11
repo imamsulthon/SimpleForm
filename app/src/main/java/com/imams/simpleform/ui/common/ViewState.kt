@@ -1,4 +1,4 @@
-package com.imams.simpleform.ui.page
+package com.imams.simpleform.ui.common
 
 sealed class FieldState<T> {
     data class Init<T>(val data: T) : FieldState<T>()

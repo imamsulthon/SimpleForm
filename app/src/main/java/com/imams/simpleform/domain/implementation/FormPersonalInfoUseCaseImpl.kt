@@ -26,16 +26,16 @@ class FormPersonalInfoUseCaseImpl @Inject constructor(
     }
 
     override suspend fun savePersonalInfo(data: PersonalInfo) {
-        val info = data.toEntity()
+        val submitData = data.toEntity()
         _data?.let {
-            info.apply {
+            submitData.apply {
                 address = it.address
                 addressNo = it.addressNo
                 housing = it.houseType
                 province = it.province
             }
         }
-        repository.saveRegistrationData(info)
+        repository.saveRegistrationData(submitData)
     }
 
 }

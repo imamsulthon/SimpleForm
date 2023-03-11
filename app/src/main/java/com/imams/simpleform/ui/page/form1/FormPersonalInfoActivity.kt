@@ -18,7 +18,7 @@ import com.imams.simpleform.data.util.DataExt.asYYYY
 import com.imams.simpleform.data.util.DataExt.creatingDate
 import com.imams.simpleform.databinding.ActivityFormPersonalInfoBinding
 import com.imams.simpleform.ui.common.DatePickerFragment
-import com.imams.simpleform.ui.page.FieldState
+import com.imams.simpleform.ui.common.FieldState
 import com.imams.simpleform.ui.page.form2.FormAddressInfoActivity
 import com.imams.simpleform.util.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,6 +56,17 @@ class FormPersonalInfoActivity : AppCompatActivity() {
 
     private fun initLiveData() {
         with(viewModel) {
+            initData.observe(this@FormPersonalInfoActivity) {
+                it.let {
+                    with(binding) {
+                        etIdCard.setText(it.id)
+                        etFullName.setText(it.fullName)
+                        etBankAccount.setText(it.bankAccount)
+                        etEducation.setText(it.education)
+                        etDob.setText(it.dob)
+                    }
+                }
+            }
             idField.observe(this@FormPersonalInfoActivity) {
                 it?.let {
                     when (it) {
@@ -244,7 +255,7 @@ class FormPersonalInfoActivity : AppCompatActivity() {
         Toast.makeText(this, "$page: $msg", Toast.LENGTH_SHORT).show()
     }
 
-    private fun printLog(msg: String, tag: String? = "PersonalInfoVM") {
+    private fun printLog(msg: String, tag: String? = "PersonalInfoPage") {
         println("$tag: msg -> $msg")
     }
 

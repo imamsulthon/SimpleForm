@@ -12,7 +12,7 @@ import androidx.core.view.isVisible
 import com.imams.simpleform.R
 import com.imams.simpleform.data.model.Province
 import com.imams.simpleform.databinding.FormAddressInfoBinding
-import com.imams.simpleform.ui.page.FieldState
+import com.imams.simpleform.ui.common.FieldState
 import com.imams.simpleform.ui.page.review.ReviewPageActivity
 import com.imams.simpleform.util.errorMessage
 import com.imams.simpleform.util.maxInput
@@ -54,14 +54,21 @@ class FormAddressInfoActivity: AppCompatActivity() {
     private fun fetchData() {
         with(intent) {
             sequentialNavigation = getBooleanExtra(NAV, sequentialNavigation)
-            getStringExtra(TAG).let {
-                viewModel.fetchData(it)
-            }
+            getStringExtra(TAG).let { viewModel.fetchData(it) }
         }
     }
 
     private fun initLiveData() {
         with(viewModel) {
+            initData.observe(this@FormAddressInfoActivity) {
+                it?.let {
+                    binding.etAddress.setText(it.address)
+                    binding.etAddressNo.setText(it.addressNo)
+                    binding.etHousing.setText(it.houseType)
+                    binding.etProvince.setText(it.province)
+                }
+            }
+
             addressField.observe(this@FormAddressInfoActivity) {
                 it?.let {
                     when (it) {

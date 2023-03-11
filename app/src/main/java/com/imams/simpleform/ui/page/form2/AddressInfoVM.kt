@@ -8,7 +8,7 @@ import com.imams.simpleform.data.model.AddressInfo
 import com.imams.simpleform.data.model.PersonalInfo
 import com.imams.simpleform.data.model.Province
 import com.imams.simpleform.domain.usecase.AddressFormUseCase
-import com.imams.simpleform.ui.page.FieldState
+import com.imams.simpleform.ui.common.FieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -19,6 +19,9 @@ import javax.inject.Inject
 class AddressInfoVM @Inject constructor(
     private val useCase: AddressFormUseCase,
 ): ViewModel() {
+
+    private val _initData = MutableLiveData<AddressInfo>()
+    var initData: LiveData<AddressInfo> = _initData
 
     private val _addressField = MutableLiveData<FieldState<Long>>()
     val addressField: LiveData<FieldState<Long>> = _addressField
@@ -44,18 +47,17 @@ class AddressInfoVM @Inject constructor(
     var personalInfo: PersonalInfo? = null
 
     fun fetchData(id: String?) {
+        printLog("id $id")
         fetchProvinceData()
         id?.let { initData(it) }
     }
 
     private fun initData(id: String) {
         viewModelScope.launch {
-            useCase.getPersonalInfo(id).collectLatest {
-                personalInfo = it
-            }
-            useCase.getAddressInfo(id).collectLatest {
-                printLog("address $it")
-            }
+            useCase.getPersonalInfo(id).collectLatest { personalInfo = it }
+        }
+        viewModelScope.launch {
+            useCase.getAddressInfo(id).collectLatest { _initData.postValue(it) }
         }
     }
 

@@ -312,7 +312,7 @@
         android:layout_margin="10dp"
         android:background="@color/purple_500"
         android:padding="8dp"
-        android:text="@string/btn_save_continue"
+        android:text="@string/btn_submit"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
