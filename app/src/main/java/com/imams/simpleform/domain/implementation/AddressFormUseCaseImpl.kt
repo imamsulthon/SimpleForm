@@ -1,7 +1,7 @@
 package com.imams.simpleform.domain.implementation
 
 import com.imams.simpleform.data.mapper.Mapper.toAddressInfo
-import com.imams.simpleform.data.mapper.Mapper.toEntity
+import com.imams.simpleform.data.mapper.Mapper.toEntityWith
 import com.imams.simpleform.data.mapper.Mapper.toModel
 import com.imams.simpleform.data.mapper.Mapper.toPersonalInfo
 import com.imams.simpleform.data.model.AddressInfo
@@ -39,7 +39,7 @@ class AddressFormUseCaseImpl @Inject constructor(
         .flowOn(Dispatchers.IO)
 
     override suspend fun saveAddressInfo(addressInfo: AddressInfo, personalInfo: PersonalInfo) {
-        val submitData = personalInfo.toEntity(addressInfo).apply {
+        val submitData = personalInfo.toEntityWith(addressInfo).apply {
             isSubmit = _data?.isSubmit
         }
         repository.saveRegistrationData(submitData)

@@ -39,7 +39,7 @@ object Mapper {
         isSubmit = null,
     )
 
-    fun PersonalInfo.toEntity(address: AddressInfo) = FormDataEntity(
+    fun PersonalInfo.toEntityWith(address: AddressInfo) = FormDataEntity(
         id = id,
         fullName = fullName,
         bankAccount = bankAccount,
