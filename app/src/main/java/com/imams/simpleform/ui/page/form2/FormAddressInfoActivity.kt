@@ -172,7 +172,6 @@ class FormAddressInfoActivity: AppCompatActivity() {
                 spinnerHousing.adapter = adapter
                 spinnerHousing.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                        printLog("spinner ${arr[p2]} $p2")
                         if (p2 > 0) etHousing.setText(arr[p2])
                         else etHousing.text = null
                     }
@@ -185,7 +184,6 @@ class FormAddressInfoActivity: AppCompatActivity() {
             spinnerProvince.adapter = provinceAdapter
             spinnerProvince.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    printLog("spinner ${provinceList[p2]} $p2")
                     if (p2 > 0) etProvince.setText(provinceList[p2])
                     else etProvince.text = null
                 }
@@ -198,7 +196,6 @@ class FormAddressInfoActivity: AppCompatActivity() {
     private fun initViewListener() {
         with(binding) {
             btnSave.setOnClickListener {
-                printLog("initViewListener")
                 viewModel.performSave(
                     address = etAddress.text.stringOrNull(),
                     houseType = etHousing.text.stringOrNull(),
@@ -217,7 +214,6 @@ class FormAddressInfoActivity: AppCompatActivity() {
     }
 
     private fun updateProvinceOptionals(list: List<Province>) {
-        printLog("setProvinceData init ${list.size} $list")
         val l = mutableListOf("Pilih Provinsi")
         l.addAll(list.map { it.name })
         provinceList.clear()
@@ -238,10 +234,6 @@ class FormAddressInfoActivity: AppCompatActivity() {
     // todo: change to SnackBar
     private fun showToast(msg: String, page: String = "Form Address Info") {
         Toast.makeText(this, "$page: $msg", Toast.LENGTH_LONG).show()
-    }
-
-    private fun printLog(msg: String, tag: String? = "FormAddressInfo Page") {
-        println("$tag: msg -> $msg")
     }
 
 }

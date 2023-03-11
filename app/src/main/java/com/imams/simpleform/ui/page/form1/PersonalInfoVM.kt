@@ -51,7 +51,6 @@ class PersonalInfoVM @Inject constructor(
     private fun fetchData(id: String) {
         viewModelScope.launch {
             useCase.getPersonalInfo(id).collectLatest {
-                printLog("fetchData $it")
                 _initData.postValue(it)
             }
         }
@@ -65,7 +64,6 @@ class PersonalInfoVM @Inject constructor(
         dob: String?,
     ) {
         viewModelScope.launch {
-            printLog("id: $id, name: $name, bank: $bankAccount, edu: $education, dob: $dob")
             val vc = ValidityCheck()
 
             if (id == null) {
@@ -108,12 +106,10 @@ class PersonalInfoVM @Inject constructor(
             }
 
             if (vc.allValid()) {
-                printLog("all field is valid")
                 savePersonalInfoData(
                     PersonalInfo(id.orEmpty(), name.orEmpty(), bankAccount.orEmpty(), education.orEmpty(), dob.orEmpty())
                 )
             } else {
-                printLog("some field not valid")
                 _doneSave.postValue(Pair(false, "invalid"))
             }
         }
@@ -127,10 +123,6 @@ class PersonalInfoVM @Inject constructor(
             _doneSave.postValue(Pair(true, data.id))
             _loading.postValue(false)
         }
-    }
-
-    private fun printLog(msg: String, tag: String? = "PersonalInfoVM") {
-        println("$tag: msg -> $msg")
     }
 
     class ValidityCheck(

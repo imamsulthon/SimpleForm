@@ -47,12 +47,10 @@ class ReviewPageActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(DATA, RegistrationInfo::class.java)?.let {
-                printLog("intent with data $it")
                 viewModel.fetchData(it)
                 return
             }
         }
-        printLog("intent with no data")
         intent.getStringExtra(TAG)?.let {
             viewModel.fetchData(it)
         }
@@ -112,11 +110,6 @@ class ReviewPageActivity : AppCompatActivity() {
             }
         )
         finish()
-    }
-
-    // todo delete
-    private fun printLog(msg: String, tag: String? = "ReviewRegistration Page") {
-        println("$tag: msg -> $msg")
     }
 
 }

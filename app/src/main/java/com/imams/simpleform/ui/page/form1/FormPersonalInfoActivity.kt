@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -186,11 +185,10 @@ class FormPersonalInfoActivity : AppCompatActivity() {
                 spinnerEducation.adapter = adapter
                 spinnerEducation.onItemSelectedListener = object : OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                        printLog("spinner ${arr[p2]} $p2")
                         if (p2 > 0) etEducation.setText(arr[p2])
                         else etEducation.text = null
                     }
-                    override fun onNothingSelected(p0: AdapterView<*>?) { printLog("spinner onNothing") }
+                    override fun onNothingSelected(p0: AdapterView<*>?) { }
                 }
 
             }
@@ -200,7 +198,6 @@ class FormPersonalInfoActivity : AppCompatActivity() {
     private fun initViewListener() {
         with(binding) {
             btnSave.setOnClickListener {
-                printLog("initViewListener")
                 viewModel.performSave(
                     id = etIdCard.text.stringOrNull(),
                     name = etFullName.text.stringOrNull(),
@@ -243,20 +240,6 @@ class FormPersonalInfoActivity : AppCompatActivity() {
         } else {
             finish()
         }
-    }
-
-    // todo: change to SnackBar
-    private fun warnField(fieldName: String) {
-        showToast("$fieldName cannot be empty")
-    }
-
-    // todo: change to SnackBar
-    private fun showToast(msg: String, page: String = "Form Personal Info") {
-        Toast.makeText(this, "$page: $msg", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun printLog(msg: String, tag: String? = "PersonalInfoPage") {
-        println("$tag: msg -> $msg")
     }
 
 }

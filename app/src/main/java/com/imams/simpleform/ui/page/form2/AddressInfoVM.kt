@@ -47,7 +47,6 @@ class AddressInfoVM @Inject constructor(
     var personalInfo: PersonalInfo? = null
 
     fun fetchData(id: String?) {
-        printLog("id $id")
         fetchProvinceData()
         id?.let { initData(it) }
     }
@@ -64,7 +63,6 @@ class AddressInfoVM @Inject constructor(
     private fun fetchProvinceData() {
         viewModelScope.launch {
             useCase.getProvinces().collectLatest {
-                printLog("fetchProvinceData ${it.size} $it")
                 _provinceData.postValue(it)
             }
         }
@@ -77,7 +75,6 @@ class AddressInfoVM @Inject constructor(
         province: String?,
     ) {
         viewModelScope.launch {
-            printLog("id: $address, name: $houseType, bank: $addressNo, edu: $province")
             val vc = ValidityCheck()
 
             if (address.isNullOrEmpty()) {
@@ -109,13 +106,11 @@ class AddressInfoVM @Inject constructor(
             }
 
             if (vc.allValid() && personalInfo != null) {
-                printLog("all field is valid")
                 submitAddress(
                     AddressInfo("", address.orEmpty(), houseType.orEmpty(), addressNo.orEmpty(), province.orEmpty())
                 )
             } else {
                 val msg = "some fields are not valid or you access from restricted entry point"
-                printLog(msg)
                 _doneSave.postValue(Pair(false, msg))
             }
         }
@@ -147,10 +142,6 @@ class AddressInfoVM @Inject constructor(
         var province: Boolean = false, // todo false
     ) {
         fun allValid() = address && houseType && addressNo && province
-    }
-
-    private fun printLog(msg: String, tag: String? = "AddressInfoVM") {
-        println("$tag: msg -> $msg")
     }
     
 }

@@ -24,7 +24,6 @@ class AllRegistrationVM @Inject constructor(
     fun fetchData() {
         viewModelScope.launch {
             repository.getAllCompleteRegistration().collectLatest {
-                printLog("collectAll total ${  it.size}, data $it")
                 _data.postValue(it)
             }
         }
@@ -37,7 +36,4 @@ class AllRegistrationVM @Inject constructor(
         }
     }
 
-    private fun printLog(msg: String, tag: String? = "MainViewModel") {
-        println("$tag: msg -> $msg")
-    }
 }

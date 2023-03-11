@@ -30,8 +30,4 @@ class RegistrationDataRepositoryImpl @Inject constructor(
         registrationDao.delete()
     }
 
-    private fun printLog(msg: String, tag: String? = "RegistrationRepo") {
-        println("$tag: msg -> $msg")
-    }
-
 }

@@ -29,11 +29,9 @@ class ProvinceDataRepositoryImpl @Inject constructor(
                     send(it.map { e -> e.toModel() })
                 }
             } catch (e: Exception) {
-                printLog("catch 1 ${e.message}")
                 send(defaultProvince().map { it.toModel() })
             }
         }.flowOn(Dispatchers.IO).catch {
-            printLog("catch 2 ${it.message}")
             emit(defaultProvince().map { i -> i.toModel() })
         }
     }
@@ -51,10 +49,6 @@ class ProvinceDataRepositoryImpl @Inject constructor(
 
     override suspend fun getProvincesLocal(): Flow<List<Province>> {
         return provinceDao.getAllProvince().map {it.toProvModels() }
-    }
-
-    private fun printLog(msg: String, tag: String? = "ProvinceRepo") {
-        println("$tag: msg -> $msg")
     }
 
     private fun defaultProvince(): List<ProvinceResponse> {
