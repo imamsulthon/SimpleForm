@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SimpleForm</string>
     <string name="company_name">Amar Bank</string>
+    <string name="alternate_app_name">Tunaiku</string>
+    <string name="developer_label">Created by Imam Sulthon</string>
 
     // form input: label and hints
     <string name="page_form_title_personal_info">Informasi Personal</string>

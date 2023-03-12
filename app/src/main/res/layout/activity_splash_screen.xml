@@ -8,24 +8,37 @@
     tools:context=".ui.SplashScreenActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/company_name"
+        android:text="@string/alternate_app_name"
         android:textAllCaps="true"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"
         android:textColor="@color/teal_700"
+        android:textSize="26sp"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@id/tv_powered_by"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/company_name"
+        android:textAllCaps="true"
+        android:textColor="@color/teal_700"
+        android:textSize="12sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_app_name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_powered_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:text="Created by Imam Sulthon"
+        android:text="@string/developer_label"
         android:textSize="11sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
