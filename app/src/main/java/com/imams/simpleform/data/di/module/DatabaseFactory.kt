@@ -19,7 +19,7 @@ object DatabaseFactory {
         return Room.databaseBuilder(
             app,
             RegistrationDb::class.java,
-            "amar_bank_registration_database"
+            "form_registration_database"
         ).fallbackToDestructiveMigration()
             .build()
     }

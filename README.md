@@ -1,5 +1,5 @@
 # SimpleForm
-Simple registration form apps, in order for submission take home test by Amar Bank
+Simple registration form apps
 
 Developer: Imam Sulthon
 
@@ -21,15 +21,6 @@ This App contains some page that following form task requirement
 - Splash Activity
 - Main Page Activity with 4 Optional buttons: 
   * Registration Page -> user fill registration page in sequential order (Personal Info -> Address Info -> Review All Info),
-  * Registration page menu -> (disabled), user can fill registration info in parallel, the main page contains 3 optional menu that will go to each form page type. But I don't think this is what this take home task requires
+  * Registration page menu -> (disabled), user can fill registration info in parallel, 
   * Configuration -> (disabled) To config some basic behavior of this apps/features
   * Show All Data -> User can see all data that have been submitted to local database/remote API (repositories)
-
-
-Note to The Reviewer/Interviewer: 
-I was developing this apps mainly focusing on the architecture layer,
-design pattern (MVVM), Unit testing and how I used it's technology stacks like Coroutine, Flow, Dagger-Hilt, etc. 
-This apps may not be UI fancy looks, but its functionality and codebase are what the requirement looking for.
-
-Kind Regards
-Imam Sulthon
