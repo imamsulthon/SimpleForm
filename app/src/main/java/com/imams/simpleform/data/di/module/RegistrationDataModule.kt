@@ -1,5 +1,6 @@
 package com.imams.simpleform.data.di.module
 
+import android.content.Context
 import com.imams.simpleform.data.repository.ProvinceDataRepository
 import com.imams.simpleform.data.repository.ProvinceDataRepositoryImpl
 import com.imams.simpleform.data.repository.RegistrationDataRepository
@@ -11,6 +12,7 @@ import com.imams.simpleform.data.source.remote.ProvinceApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -27,8 +29,8 @@ object RegistrationDataModule {
 
     @Provides
     @Singleton
-    fun provideProvinceRepo(provinceApi: ProvinceApi, provinceDao: ProvinceDao): ProvinceDataRepository {
-        return ProvinceDataRepositoryImpl(provinceApi, provinceDao)
+    fun provideProvinceRepo(provinceApi: ProvinceApi, provinceDao: ProvinceDao, @ApplicationContext context: Context): ProvinceDataRepository {
+        return ProvinceDataRepositoryImpl(provinceApi, provinceDao, context)
     }
 
     @Provides

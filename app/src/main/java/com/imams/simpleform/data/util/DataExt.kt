@@ -1,5 +1,8 @@
 package com.imams.simpleform.data.util
 
+import android.content.Context
+import com.imams.simpleform.data.model.Province
+import java.io.IOException
 import java.lang.Double.parseDouble
 import java.time.DateTimeException
 import java.time.LocalDate
@@ -68,6 +71,17 @@ object DataExt {
         } catch (e: Exception) {
             return null
         }
+    }
+
+    fun getJSONFile(context: Context, fileName: String): String {
+        val jsonString: String
+        try {
+            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+            return ""
+        }
+        return jsonString
     }
 
 }
