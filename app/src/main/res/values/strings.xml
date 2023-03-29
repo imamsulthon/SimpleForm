@@ -4,28 +4,28 @@
     <string name="developer_label">Created by Imam Sulthon</string>
 
     // form input: label and hints
-    <string name="page_form_title_personal_info">Informasi Personal</string>
-    <string name="field_label_id_card">Nomor KTP</string>
-    <string name="field_label_full_name">Nama Lengkap</string>
-    <string name="field_label_bank_account">Nomor Rekening</string>
-    <string name="field_label_id_education">Pendidikan</string>
-    <string name="field_label_full_dob">Tanggal lahir (DD/MM/YYYY)</string>
-    <string name="btn_save">Simpan</string>
-    <string name="btn_save_continue">Simpan &amp; Lanjut</string>
-    <string name="btn_done">Selesai</string>
+    <string name="page_form_title_personal_info">Personal Info</string>
+    <string name="field_label_id_card">ID Card</string>
+    <string name="field_label_full_name">Full Name</string>
+    <string name="field_label_bank_account">Bank Account</string>
+    <string name="field_label_id_education">Education</string>
+    <string name="field_label_full_dob">Date of Birth (DD/MM/YYYY)</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_save_continue">Save &amp; Continue</string>
+    <string name="btn_done">Done</string>
     <string name="btn_submit">Submit</string>
 
-    <string name="page_form_title_address_info">Detail Alamat</string>
-    <string name="field_label_address">Alamat Domisili</string>
+    <string name="page_form_title_address_info">Address Detail</string>
+    <string name="field_label_address">Domicile</string>
     <string name="field_label_address_no">No</string>
-    <string name="field_label_housing">Tipe Tempat Tinggal</string>
-    <string name="field_label_province">Provinsi</string>
+    <string name="field_label_housing">Housing Type</string>
+    <string name="field_label_province">Province</string>
     <string name="text_place_holder_long">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry</string>
 
-    <string name="page_form_title_review">Informasi Registrasi</string>
+    <string name="page_form_title_review">Registration Info</string>
 
     <string-array name="education_array">
-        <item>Pilihan…</item>
+        <item>Options…</item>
         <item>SD</item>
         <item>SMP</item>
         <item>SMA</item>
@@ -36,9 +36,9 @@
 
 
     <string-array name="housing_type_array">
-        <item>Pilihan…</item>
-        <item>Rumah</item>
-        <item>Kantor</item>
+        <item>Options…</item>
+        <item>Home</item>
+        <item>Office</item>
     </string-array>
 
 </resources>
